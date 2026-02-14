@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllGarages } from '../models/Garage';
+import { getAllGarages } from '../models/garage';
 
 const router = Router();
 

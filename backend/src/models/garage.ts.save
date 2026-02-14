@@ -1,0 +1,22 @@
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+export interface garage {
+  id: number;
+  number: string;
+  owner_name?: string;
+  status: 'paid' | 'partial' | 'unpaid';
+}
+
+export const getAllgarages = async (): Promise<garage[]> => {
+  const result = await pool.query('SELECT * FROM garages ORDER BY number');
+  return result.rows;
+};
+
+export const getgarageByNumber = async (number: string): Promise<garage | null> => {
+  const result = await pool.query('SELECT * FROM garages WHERE number = $1', [number]);
+  return result.rows[0] || null;
+};
